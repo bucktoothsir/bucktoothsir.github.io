@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="$haha$">
+<meta name="description" content="论文链接Spatio-Temporal Naive-Bayes Nearest-Neighbor (ST-NBNN) for Skeleton-Based Action Recognition repo链接https://github.com/Wuie/ST-NBNN-demo 数据输入视频化为为N个stage： $x = [x^1, …, x^N]$一个长度为的stage表示为pose和速度的组">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spatio-Temporal Naive-Bayes Nearest-Neighbor (ST-NBNN) for Skeleton-Based Action Recognition">
 <meta property="og:url" content="http://yoursite.com/2019/08/18/Spatio-Temporal-Naive-Bayes-Nearest-Neighbor-ST-NBNN-for-Skeleton-Based-Action-Recognition/index.html">
 <meta property="og:site_name" content="世界上最后一个emo男孩">
-<meta property="og:description" content="$haha$">
+<meta property="og:description" content="论文链接Spatio-Temporal Naive-Bayes Nearest-Neighbor (ST-NBNN) for Skeleton-Based Action Recognition repo链接https://github.com/Wuie/ST-NBNN-demo 数据输入视频化为为N个stage： $x = [x^1, …, x^N]$一个长度为的stage表示为pose和速度的组">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-17T21:56:22.269Z">
+<meta property="og:image" content="http://yoursite.com/.com//nbnn.png">
+<meta property="og:updated_time" content="2019-08-17T22:05:49.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spatio-Temporal Naive-Bayes Nearest-Neighbor (ST-NBNN) for Skeleton-Based Action Recognition">
-<meta name="twitter:description" content="$haha$">
+<meta name="twitter:description" content="论文链接Spatio-Temporal Naive-Bayes Nearest-Neighbor (ST-NBNN) for Skeleton-Based Action Recognition repo链接https://github.com/Wuie/ST-NBNN-demo 数据输入视频化为为N个stage： $x = [x^1, …, x^N]$一个长度为的stage表示为pose和速度的组">
+<meta name="twitter:image" content="http://yoursite.com/.com//nbnn.png">
 
 
 
@@ -271,7 +273,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-18T05:54:29+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-18T06:00:32+08:00">
                 2019-08-18
               </time>
             
@@ -309,8 +311,17 @@
       
 
       
-        <p>$haha$</p>
-
+        <h3 id="论文链接"><a href="#论文链接" class="headerlink" title="论文链接"></a>论文链接</h3><p>Spatio-Temporal Naive-Bayes Nearest-Neighbor (ST-NBNN) for Skeleton-Based Action Recognition</p>
+<h3 id="repo链接"><a href="#repo链接" class="headerlink" title="repo链接"></a>repo链接</h3><p><a href="https://github.com/Wuie/ST-NBNN-demo" target="_blank" rel="noopener">https://github.com/Wuie/ST-NBNN-demo</a></p>
+<h3 id="数据输入"><a href="#数据输入" class="headerlink" title="数据输入"></a>数据输入</h3><p>视频化为为N个stage：</p>
+<p>$x = [x^1, …, x^N]$<br>一个长度为的stage表示为pose和速度的组合：</p>
+<script type="math/tex; mode=display">x^i = [(x_p^i)^T, (x_v^i)^T]^T \\</script><script type="math/tex; mode=display">x_p = [p_1^T, p_2^T, ..., p_l^T]^T \\</script><script type="math/tex; mode=display">x_v = [v_1^T, v_2^T, ..., v_l^T]^T</script><h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><h4 id="NBNN（朴素贝叶斯最近邻）"><a href="#NBNN（朴素贝叶斯最近邻）" class="headerlink" title="NBNN（朴素贝叶斯最近邻）"></a>NBNN（朴素贝叶斯最近邻）</h4><p>朴素贝叶斯最近邻算法是一个分类算法。<br><img src="/.com//nbnn.png" alt="Alt text"><br>公式推导可看<a href="http://cs.ucf.edu/courses/cap6412/fall2009/papers/InDefenceOfNN_CVPR08.pdf%27NBNN%27" target="_blank" rel="noopener">NBNN</a>。大概流程是：</p>
+<p>最大后验$p(c|x)$—&gt;因为每个类别的概率相等—&gt;最大似然$p(x|c)$—&gt;将样本解构为若干个独立的特征，比如说stage特征，运用朴素贝叶斯—-&gt;$c = \arg \underset{c}{max} \frac{1}{n} \sum_{i=1}^{n} \log p(x^i|c)$—&gt;对于$p(x^i|c)$建模—&gt;核密度建模，Parzen kernel function，只有最近邻→可以得到上图中第三步的公式</p>
+<p>上图中的图片Q可以换成这里的视频，是一个视频的一个stage特质。可以看到，每个类对应着若干个视频，也就对应这若干个不同stage的特质。<strong>当来一个新样本需要分类时，我们按照规则化为stage，利用skeleton计算stage特征，按照第三步的公式就可以预测label。</strong></p>
+<h4 id="ST-NBNN（时空-朴素贝叶斯最近邻）"><a href="#ST-NBNN（时空-朴素贝叶斯最近邻）" class="headerlink" title="ST-NBNN（时空-朴素贝叶斯最近邻）"></a>ST-NBNN（时空-朴素贝叶斯最近邻）</h4><p>NBNN明显是没有参数的，也就是说不管哪段stage，不管哪个keypoint的权重都相同。作者提出了ST-NBNN，分别对stage设置了时间的权重和对keypoint设置了空间上的权重。</p>
+<p>首先，现在分类公式为：</p>
+<script type="math/tex; mode=display">c = \arg \underset {c}{min} f_c(X_c) \\</script><script type="math/tex; mode=display">f_c(X_c) = (u_c^s)^T X_c  (u_c^t) \\</script><script type="math/tex; mode=display">Xc = \sum_{i=1}^{N} ||x^i-NN_c(x^i)||^2</script><p>利用hingeloss，可以得到和tensorSVM类似的损失函数，分别迭代优化这两类权重即可。</p>
+<h3 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h3>
       
     </div>
     
@@ -394,8 +405,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -455,6 +475,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#论文链接"><span class="nav-number">1.</span> <span class="nav-text">论文链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repo链接"><span class="nav-number">2.</span> <span class="nav-text">repo链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据输入"><span class="nav-number">3.</span> <span class="nav-text">数据输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">4.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NBNN（朴素贝叶斯最近邻）"><span class="nav-number">4.1.</span> <span class="nav-text">NBNN（朴素贝叶斯最近邻）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ST-NBNN（时空-朴素贝叶斯最近邻）"><span class="nav-number">4.2.</span> <span class="nav-text">ST-NBNN（时空-朴素贝叶斯最近邻）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指标"><span class="nav-number">5.</span> <span class="nav-text">指标</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -649,26 +685,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
